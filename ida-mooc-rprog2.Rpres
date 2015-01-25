@@ -1,0 +1,335 @@
+R Programming - Part 2
+========================================================
+author: Eugene Teo
+date: February 9th, 2015
+
+Who am i?
+========================================================
+
+![ida-mooc-2014](ida-mooc-2014.png)
+
+[@eugeneteo](http://www.twitter.com/eugeneteo)
+
+Week 3
+========================================================
+Loop functions
+
+Loop Functions
+========================================================
+
+The use of functionals is an alternative to for-loops
+
+* ```lapply()``` (loops a list and returns a list)
+* ```sapply()``` (simplies the result of ```lapply``` if possible by returning a vector or matrix or list of values)
+* ```apply()``` (applies a function to margins of an array or matrix, and returns a vector or array or list of values)
+* ```tapply()``` (applies a function to groups of data)
+* ```mapply()``` (applies a function to multiple list or vector arguments)
+
+Loop functions - lapply
+========================================================
+
+Applies a function over a list or vector
+
+```{r}
+lapply
+```
+
+Loop functions - lapply
+========================================================
+
+```{r}
+(x <- list(a = 1:3, b = rnorm(3)))
+lapply(x, mean)
+```
+
+Loop functions - lapply
+========================================================
+
+```runif()``` generates random deviates
+
+```{r}
+x <- 1:3 # number of observations
+lapply(x, runif) # n, min = 0, max = 1
+```
+
+Loop functions - lapply
+========================================================
+
+```{r}
+(x <- list(a = matrix(1:4, nrow=2, ncol=2),
+          b = matrix(1:6, nrow=3, ncol=2)))
+
+```
+
+Loop functions - lapply
+========================================================
+
+```{r}
+x <- list(a = matrix(1:4, nrow=2, ncol=2),
+          b = matrix(1:6, nrow=3, ncol=2))
+lapply(x, function(elt) elt[, 1, drop = F])
+```
+
+Loop functions - sapply
+========================================================
+
+```sapply()``` simplies the result of ```lapply()``` if possible
+
+* If the result is a list where every element is length 1, then a vector is returned
+* If the result is a list where every element is a vector of the same length (>1), a matrix is returned
+* If the result is a list where every element is of different types or lengths, it will silently return a list
+
+Loop functions - sapply
+========================================================
+
+```{r}
+data(mtcars)
+mtcars[1, ]
+sapply(mtcars, is.numeric) # returns a vector
+```
+
+Loop functions - sapply
+========================================================
+
+```{r}
+```{r}
+x <- c(8, 8, 8) # number of observations
+sapply(x, runif) # returns a matrix
+```
+
+Loop functions - sapply
+========================================================
+
+```{r}
+(x <- data.frame(x = 1:10, y = Sys.time() + 1:10))[1, ]
+sapply(x, class) # returns a list
+```
+
+Loop functions - apply
+========================================================
+
+Applies a function to margins of an array or matrix, and returns a vector or array or list of values
+
+```{r}
+str(apply)
+```
+
+```MARGIN``` is a vector giving the subscripts which the function will be applied over:
+* ```1``` indicates rows
+* ```2``` indicates columns
+* ```c(1, 2)``` indicates rows and columns
+
+Loop functions - apply
+========================================================
+
+```{r}
+(x <- matrix(1:16, nrow = 2))
+apply(x, 1, mean) # row
+apply(x, 2, mean) # col
+```
+
+Loop functions - apply
+========================================================
+
+```{r}
+(x <- matrix(rnorm(15), ncol = 3))
+apply(x, 2, quantile, probs = c(0.25, 0.75))
+```
+
+Loop functions - tapply
+========================================================
+
+Applies a function to groups of data using a grouping factor
+
+```{r}
+str(tapply)
+```
+
+```X``` is a vector and ```INDEX``` is a grouping factor. The function should expect one argument, which is a vector of elements taken from x according to their group
+
+
+Loop functions - tapply
+========================================================
+
+```{r}
+data(Orange) # Growth of Orange Trees
+Orange[1, ]
+str(Orange$Tree)
+levels(Orange$Tree)
+```
+
+Loop functions - tapply
+========================================================
+
+```{r}
+data(Orange) # Growth of Orange Trees
+tapply(Orange$circumference, Orange$Tree, mean) # returns an array
+```
+
+If ```simplify``` = ```FALSE```, it will return a list
+
+Loop functions - tapply
+========================================================
+
+```{r}
+# 20x standard normals, 10x random deviates
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+# generate factor levels
+(f <- gl(3, 10)) # 3 = levels, 10 = replications
+tapply(x, f, mean)
+```
+
+Loop functions - tapply
+========================================================
+
+```{r}
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+f <- gl(3, 10)
+tapply(x, f, mean, simplify = FALSE)
+```
+
+Loop functions - tapply
+========================================================
+
+```{r}
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+f <- gl(3, 10)
+# returns an array with the mode of the scalar
+# range returns a vector of min and max
+tapply(x, f, range)
+```
+
+Loop functions - mapply
+========================================================
+
+Applies a function to multiple list or vector arguments
+
+```{r}
+str(mapply)
+```
+
+Loop functions - mapply
+========================================================
+
+```{r}
+mapply(rep, 1:3, 3:1)
+# rep(1, 3) [1], 2, 3  [3], 2, 1
+# rep(2, 2) 1, [2], 3  3, [2], 1
+# rep(3, 1) 1, 2, [3]  3, 2, [1]
+```
+
+Loop functions - mapply
+========================================================
+
+```{r}
+l1 <- list(a = c(1:10), b = c(11:20))
+l2 <- list(c = c(21:30), d = c(31:40))
+# sum the corresponding elements of l1 and l2
+mapply(sum, l1$a, l1$b, l2$c, l2$d)
+# sum(1, 11, 21, 31) = 64
+# ...
+# sum(10, 20, 30, 40) = 100
+```
+
+Loop functions - split
+========================================================
+
+Takes a vector or other objects and splits it into groups determined by a factor or list of factors
+
+```{r}
+str(split)
+```
+
+```x``` is a vector or data frame containing values to be dividend into groups
+
+```f``` is a factor (or coerced to one) or a list of factors
+
+```drop``` indicates if empty factor levels should be dropped. FALSE by default
+
+Loop functions - split
+========================================================
+
+```{r}
+x <- c(rnorm(5), runif(5), rnorm(5, 1))
+f <- gl(3, 5)
+split(x, f) # returns a list of vectors
+```
+
+Loop functions - split
+========================================================
+
+```{r}
+x <- c(rnorm(5), runif(5), rnorm(5, 1))
+f <- gl(3, 5)
+lapply(split(x, f), mean)
+```
+
+Loop functions - split
+========================================================
+
+```{r}
+data(airquality)
+# first three months
+s <- split(airquality, airquality$Month)[1:3]
+# column mean
+sapply(s, function(x) apply(x[, c("Ozone", "Solar.R", "Wind", "Temp")], 2, mean, na.rm = TRUE))
+```
+
+Loop functions - split
+========================================================
+
+```{r}
+x <- 1:10
+(f1 <- gl(2, 5)) # 2 - levels, 5 - repl
+f2 <- gl(5, 2)
+interaction(f1, f2)
+```
+
+Loop functions - split
+========================================================
+
+```{r}
+x <- 1:10
+f1 <- gl(2, 5) # 2 - levels, 5 - repl
+f2 <- gl(5, 2)
+str(split(x, list(f1, f2)))
+```
+
+Loop functions - split
+========================================================
+
+Explanation:
+
+```{r}
+# f1 = 11 11 1 2 22 22
+# f2 = 11 22 3 3 44 55
+# x  = 12 34 5 6 78 910
+#       2  2 1 1  2  2
+# There's 1.1, 1.2, 1.3, 2.3, 2.4, and 2.5
+# There's no 2.1, 2.2, 1.4, and 1.5
+```
+
+Read [Splitting on more than one level](https://class.coursera.org/rprog-010/forum/thread?thread_id=1071)
+
+Not covering
+========================================================
+
+Debugging tools and R profiling
+
+References
+========================================================
+
+[R Programming](https://www.coursera.org/course/rprog) by Roger D. Peng, Jeff Leek and Brian Caffo
+
+[Advanced R](http://www.amazon.com/Advanced-Chapman-Hall-Hadley-Wickham/dp/1466586966/) by Hadley Wickham
+
+[R Cookbook](http://www.amazon.com/Cookbook-OReilly-Cookbooks-Paul-Teetor/dp/0596809158/) by Paul Teetor
+
+[A brief introduction to “apply” in R](https://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/) by Neil Saunders
+
+[R tapply Function](http://www.endmemo.com/program/R/tapply.php) by endmemo.com
+
+Thanks
+========================================================
+
+Join our [iDA Data Sci MOOC](https://www.facebook.com/groups/iDADataSciMOOC/) Facebook group!
