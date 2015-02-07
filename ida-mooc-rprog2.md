@@ -8,7 +8,146 @@ Who am i?
 
 ![ida-mooc-2014](ida-mooc-2014.jpg)
 
-[\@eugeneteo](http://www.twitter.com/eugeneteo)
+[https://github.com/eugeneteo/ida-mooc-rprog2](https://github.com/eugeneteo/ida-mooc-rprog2)
+
+[@eugeneteo](http://www.twitter.com/eugeneteo)
+
+Refresher
+========================================================
+
+"As you learn to program, you are going to get frustrated. You are learning a
+new language, and it will take time to become fluent. But frustration is not just natural, it's
+actually a positive sign that you should watch for.
+
+Frustration is your brain's way of being
+lazy; it's trying to get you to quit and go do something easy or fun. [...] If you want
+to get better at programming, you'll need to push your brain.
+
+Recognize when you get frustrated
+and see it as a good thing: you're now stretching yourself. Push yourself a little further
+every day, and you'll soon be a confident programmer."
+
+-- Hadley Wickham
+
+Refresher
+========================================================
+
+Coding convention used in these slides
+
+
+```r
+(x <- c(1, 2, 3, 4)) # preferred method
+```
+
+```
+[1] 1 2 3 4
+```
+
+is the same as
+
+
+```r
+x <- c(1, 2, 3, 4)
+x
+```
+
+```
+[1] 1 2 3 4
+```
+
+Refresher
+========================================================
+
+![r-data-structures](r-data-structures.jpg)
+
+Refresher
+========================================================
+
+
+```r
+(x <- matrix(1:6, nrow = 2, ncol = 3))
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+```
+
+```r
+seq_len(nrow(x)) # indices of x's rows
+```
+
+```
+[1] 1 2
+```
+
+```r
+seq_len(ncol(x)) # indices of x's columns
+```
+
+```
+[1] 1 2 3
+```
+
+Refresher
+========================================================
+
+
+```r
+(x <- matrix(1:6, nrow = 2, ncol = 3))
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+```
+
+```r
+x[1, 2] # x[row, column]
+```
+
+```
+[1] 3
+```
+
+```r
+x[2, 3]
+```
+
+```
+[1] 6
+```
+
+Refresher
+========================================================
+
+
+```r
+(x <- matrix(1:6, nrow = 2, ncol = 3))
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+```
+
+```r
+for (a in seq_len(nrow(x))) # 1 2
+   for (b in seq_len(ncol(x))) # 1 2 3
+      print(x[a, b])
+```
+
+```
+[1] 1
+[1] 3
+[1] 5
+[1] 2
+[1] 4
+[1] 6
+```
 
 Week 3
 ========================================================
@@ -43,8 +182,35 @@ function (X, FUN, ...)
         X <- as.list(X)
     .Internal(lapply(X, FUN))
 }
-<bytecode: 0x7fd35a93a508>
+<bytecode: 0x7fa32102fd78>
 <environment: namespace:base>
+```
+
+Loop Functions
+========================================================
+
+
+```r
+(x <- list(a = 1:3, b = rnorm(3)))
+```
+
+```
+$a
+[1] 1 2 3
+
+$b
+[1] -2.2385283  0.6897759 -0.3757197
+```
+
+```r
+for (a in 1:length(x)) { # 1:2
+   print(mean(x[[a]])) # remember [[?]]?
+}
+```
+
+```
+[1] 2
+[1] -0.6414907
 ```
 
 Loop functions - lapply
@@ -60,11 +226,11 @@ $a
 [1] 1 2 3
 
 $b
-[1] -1.809 -1.688 -1.106
+[1]  0.4627700 -0.4401947 -1.0321447
 ```
 
 ```r
-lapply(x, mean)
+lapply(x, mean) # mean(x$a) and mean(x$b)
 ```
 
 ```
@@ -72,7 +238,7 @@ $a
 [1] 2
 
 $b
-[1] -1.534
+[1] -0.3365231
 ```
 
 Loop functions - lapply
@@ -83,18 +249,18 @@ Loop functions - lapply
 
 ```r
 x <- 1:3 # number of observations
-lapply(x, runif) # n, min = 0, max = 1
+lapply(x, runif) # runif(n, min = 0, max = 1)
 ```
 
 ```
 [[1]]
-[1] 0.5389
+[1] 0.4682086
 
 [[2]]
-[1] 0.830157 0.002012
+[1] 0.09908585 0.31213501
 
 [[3]]
-[1] 0.5913 0.4146 0.3948
+[1] 0.32114970 0.08100106 0.98748551
 ```
 
 Loop functions - lapply
@@ -126,6 +292,7 @@ Loop functions - lapply
 ```r
 x <- list(a = matrix(1:4, nrow=2, ncol=2),
           b = matrix(1:6, nrow=3, ncol=2))
+# show column 1 in matrix format
 lapply(x, function(elt) elt[, 1, drop = F])
 ```
 
@@ -156,16 +323,34 @@ Loop functions - sapply
 
 
 ```r
-data(mtcars)
-mtcars[1, ]
+data(mtcars) # in-built dataset
+str(mtcars[1, ]) # first row
 ```
 
 ```
-          mpg cyl disp  hp drat   wt  qsec vs am gear carb
-Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4
+'data.frame':	1 obs. of  11 variables:
+ $ mpg : num 21
+ $ cyl : num 6
+ $ disp: num 160
+ $ hp  : num 110
+ $ drat: num 3.9
+ $ wt  : num 2.62
+ $ qsec: num 16.5
+ $ vs  : num 0
+ $ am  : num 1
+ $ gear: num 4
+ $ carb: num 4
 ```
+
+Loop functions - sapply
+========================================================
+
+If the result is a list where every element is length 1, then a vector is returned
+
 
 ```r
+data(mtcars) # in-built dataset
+# mtcars[1, ] # show first row
 sapply(mtcars, is.numeric) # returns a vector
 ```
 
@@ -177,23 +362,25 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 Loop functions - sapply
 ========================================================
 
+If the result is a list where every element is a vector of the same length (>1), a matrix is returned
+
 
 
 ```r
-x <- c(8, 8, 8) # number of observations
-sapply(x, runif) # returns a matrix
+x <- c(8, 8, 8) # 3 columns of 8 observations
+sapply(x, runif) # runif(8, min = 0, max = 1)
 ```
 
 ```
-       [,1]    [,2]    [,3]
-[1,] 0.2034 0.83923 0.53546
-[2,] 0.6617 0.06192 0.83011
-[3,] 0.9350 0.07225 0.77159
-[4,] 0.4488 0.29010 0.22327
-[5,] 0.7738 0.82999 0.18566
-[6,] 0.4144 0.52119 0.55758
-[7,] 0.3417 0.63591 0.02809
-[8,] 0.3622 0.25780 0.42997
+           [,1]       [,2]       [,3]
+[1,] 0.46275975 0.04335141 0.33915467
+[2,] 0.23744824 0.61148808 0.31302731
+[3,] 0.73718435 0.08582378 0.51388086
+[4,] 0.88424684 0.24862132 0.01103550
+[5,] 0.39772136 0.35580143 0.95110089
+[6,] 0.04426167 0.58004048 0.02265616
+[7,] 0.84149079 0.81558835 0.86771253
+[8,] 0.28387279 0.60785803 0.49148457
 ```
 
 Loop functions - sapply
@@ -201,15 +388,31 @@ Loop functions - sapply
 
 
 ```r
-(x <- data.frame(x = 1:10, y = Sys.time() + 1:10))[1, ]
+(x <- data.frame(x = 1:10, y = Sys.time() + 1:10)) # plus 1:10 secs
 ```
 
 ```
-  x                   y
-1 1 2015-01-26 15:50:14
+    x                   y
+1   1 2015-02-07 10:52:04
+2   2 2015-02-07 10:52:05
+3   3 2015-02-07 10:52:06
+4   4 2015-02-07 10:52:07
+5   5 2015-02-07 10:52:08
+6   6 2015-02-07 10:52:09
+7   7 2015-02-07 10:52:10
+8   8 2015-02-07 10:52:11
+9   9 2015-02-07 10:52:12
+10 10 2015-02-07 10:52:13
 ```
+
+Loop functions - sapply
+========================================================
+
+If the result is a list where every element is of different types or lengths, it will silently return a list
+
 
 ```r
+x <- data.frame(x = 1:10, y = Sys.time() + 1:10)
 sapply(x, class) # returns a list
 ```
 
@@ -273,18 +476,38 @@ apply(x, 2, mean) # col
 Loop functions - apply
 ========================================================
 
+```quantile()``` provides the sample quantiles based on the given probabilities
+
+
+```r
+# quantile(x, probs = seq(0, 1, 0.25),
+#          na.rm = FALSE, names = TRUE,
+#          type = 7, ...)
+quantile
+```
+
+```
+function (x, ...) 
+UseMethod("quantile")
+<bytecode: 0x7fa3231acd88>
+<environment: namespace:stats>
+```
+
+Loop functions - apply
+========================================================
+
 
 ```r
 (x <- matrix(rnorm(15), ncol = 3))
 ```
 
 ```
-        [,1]    [,2]     [,3]
-[1,]  0.4500 -0.5352  0.47414
-[2,]  1.4547  0.5976  0.06270
-[3,] -0.5679  0.6424  0.02877
-[4,] -1.3109 -0.1566 -0.70189
-[5,] -1.0854 -0.2053  0.87027
+            [,1]       [,2]         [,3]
+[1,]  0.20638086 -0.1341630  0.454166012
+[2,] -0.31234446  1.7214582  0.992061061
+[3,]  1.38489565  1.1261598 -0.568060673
+[4,]  0.08508306 -0.8391951  0.009162009
+[5,] -0.66024766 -0.2804249  0.759973437
 ```
 
 ```r
@@ -292,9 +515,9 @@ apply(x, 2, quantile, probs = c(0.25, 0.75))
 ```
 
 ```
-      [,1]    [,2]    [,3]
-25% -1.085 -0.2053 0.02877
-75%  0.450  0.5976 0.47414
+          [,1]       [,2]        [,3]
+25% -0.3123445 -0.2804249 0.009162009
+75%  0.2063809  1.1261598 0.759973437
 ```
 
 Loop functions - tapply
@@ -313,6 +536,28 @@ function (X, INDEX, FUN = NULL, ..., simplify = TRUE)
 
 ```X``` is a vector and ```INDEX``` is a grouping factor. The function should expect one argument, which is a vector of elements taken from x according to their group
 
+Loop functions - tapply
+========================================================
+
+
+```r
+data(Orange) # Growth of Orange Trees
+Orange[1:10, ]
+```
+
+```
+   Tree  age circumference
+1     1  118            30
+2     1  484            58
+3     1  664            87
+4     1 1004           115
+5     1 1231           120
+6     1 1372           142
+7     1 1582           145
+8     2  118            33
+9     2  484            69
+10    2  664           111
+```
 
 Loop functions - tapply
 ========================================================
@@ -320,15 +565,6 @@ Loop functions - tapply
 
 ```r
 data(Orange) # Growth of Orange Trees
-Orange[1, ]
-```
-
-```
-  Tree age circumference
-1    1 118            30
-```
-
-```r
 str(Orange$Tree)
 ```
 
@@ -344,6 +580,14 @@ levels(Orange$Tree)
 [1] "3" "1" "5" "2" "4"
 ```
 
+```r
+nlevels(Orange$Tree)
+```
+
+```
+[1] 5
+```
+
 Loop functions - tapply
 ========================================================
 
@@ -354,11 +598,11 @@ tapply(Orange$circumference, Orange$Tree, mean) # returns an array
 ```
 
 ```
-     3      1      5      2      4 
- 94.00  99.57 111.14 135.29 139.29 
+        3         1         5         2         4 
+ 94.00000  99.57143 111.14286 135.28571 139.28571 
 ```
 
-If ```simplify``` = ```FALSE```, it will return a list
+If ```simplify``` = ```FALSE``` (not the default), it will return a list
 
 Loop functions - tapply
 ========================================================
@@ -381,12 +625,14 @@ tapply(x, f, mean)
 ```
 
 ```
-     1      2      3 
-0.3057 0.5004 0.8888 
+         1          2          3 
+-0.3662969  0.4416382  0.5412807 
 ```
 
 Loop functions - tapply
 ========================================================
+
+Returns a list instead of an array, see ```simplify = FALSE```
 
 
 ```r
@@ -397,36 +643,37 @@ tapply(x, f, mean, simplify = FALSE)
 
 ```
 $`1`
-[1] 0.7861
+[1] 0.09139896
 
 $`2`
-[1] 0.533
+[1] 0.5737328
 
 $`3`
-[1] 0.6637
+[1] 1.411114
 ```
 
 Loop functions - tapply
 ========================================================
+
+```range()``` returns a vector of min and max
 
 
 ```r
 x <- c(rnorm(10), runif(10), rnorm(10, 1))
 f <- gl(3, 10)
 # returns an array with the mode of the scalar
-# range returns a vector of min and max
 tapply(x, f, range)
 ```
 
 ```
 $`1`
-[1] -1.676  2.170
+[1] -3.033554  1.792158
 
 $`2`
-[1] 0.04163 0.88984
+[1] 0.05541106 0.97794027
 
 $`3`
-[1] -1.408  2.494
+[1] -1.777545  2.537002
 ```
 
 Loop functions - mapply
@@ -485,7 +732,11 @@ mapply(sum, l1$a, l1$b, l2$c, l2$d)
 
 ```r
 # sum(1, 11, 21, 31) = 64
+# sum(2, 12, 22, 32) = 68
+# sum(3, 13, 23, 33) = 72
 # ...
+# sum(8, 18, 28, 38) = 92
+# sum(9, 19, 29, 39) = 96
 # sum(10, 20, 30, 40) = 100
 ```
 
@@ -515,19 +766,19 @@ Loop functions - split
 
 ```r
 x <- c(rnorm(5), runif(5), rnorm(5, 1))
-f <- gl(3, 5)
+f <- gl(3, 5) # 3 levels, 5 replications
 split(x, f) # returns a list of vectors
 ```
 
 ```
 $`1`
-[1]  0.2905 -0.3770 -1.1689  0.8352  0.5989
+[1] -1.3841932 -0.1466192 -1.4490820  0.2533132 -0.2254770
 
 $`2`
-[1] 0.6559 0.8826 0.5082 0.8519 0.2110
+[1] 0.8376879 0.1411234 0.5043843 0.7396503 0.9647902
 
 $`3`
-[1] 2.2188 0.5696 1.0466 0.4679 0.4039
+[1] 1.3078085 1.7957987 0.2445747 2.5139787 0.6559782
 ```
 
 Loop functions - split
@@ -536,19 +787,19 @@ Loop functions - split
 
 ```r
 x <- c(rnorm(5), runif(5), rnorm(5, 1))
-f <- gl(3, 5)
+f <- gl(3, 5) # 3 levels, 5 replications
 lapply(split(x, f), mean)
 ```
 
 ```
 $`1`
-[1] 0.1843
+[1] -0.009444776
 
 $`2`
-[1] 0.7702
+[1] 0.5304554
 
 $`3`
-[1] 1.358
+[1] 0.6045341
 ```
 
 Loop functions - split
@@ -564,11 +815,11 @@ sapply(s, function(x) apply(x[, c("Ozone", "Solar.R", "Wind", "Temp")], 2, mean,
 ```
 
 ```
-             5      6       7
-Ozone    23.62  29.44  59.115
-Solar.R 181.30 190.17 216.484
-Wind     11.62  10.27   8.942
-Temp     65.55  79.10  83.903
+                5         6          7
+Ozone    23.61538  29.44444  59.115385
+Solar.R 181.29630 190.16667 216.483871
+Wind     11.62258  10.26667   8.941935
+Temp     65.54839  79.10000  83.903226
 ```
 
 Loop functions - split
@@ -586,8 +837,8 @@ Levels: 1 2
 ```
 
 ```r
-f2 <- gl(5, 2)
-interaction(f1, f2)
+f2 <- gl(5, 2) # 5 - levels, 2 - replications
+interaction(f1, f2) # Factor interactions
 ```
 
 ```
@@ -658,4 +909,6 @@ References
 Thanks
 ========================================================
 
-Join our [iDA Data Sci MOOC](https://www.facebook.com/groups/iDADataSciMOOC/) Facebook group!
+Join the [first](https://www.facebook.com/groups/iDADataSciMOOC/) and [second](https://www.facebook.com/groups/datascienceJOHNS/) cohorts' Facebook groups!
+
+[@eugeneteo](http://www.twitter.com/eugeneteo)

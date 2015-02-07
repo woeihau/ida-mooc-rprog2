@@ -8,7 +8,75 @@ Who am i?
 
 ![ida-mooc-2014](ida-mooc-2014.jpg)
 
-[\@eugeneteo](http://www.twitter.com/eugeneteo)
+[https://github.com/eugeneteo/ida-mooc-rprog2](https://github.com/eugeneteo/ida-mooc-rprog2)
+
+[@eugeneteo](http://www.twitter.com/eugeneteo)
+
+Refresher
+========================================================
+
+"As you learn to program, you are going to get frustrated. You are learning a
+new language, and it will take time to become fluent. But frustration is not just natural, it's
+actually a positive sign that you should watch for.
+
+Frustration is your brain's way of being
+lazy; it's trying to get you to quit and go do something easy or fun. [...] If you want
+to get better at programming, you'll need to push your brain.
+
+Recognize when you get frustrated
+and see it as a good thing: you're now stretching yourself. Push yourself a little further
+every day, and you'll soon be a confident programmer."
+
+-- Hadley Wickham
+
+Refresher
+========================================================
+
+Coding convention used in these slides
+
+```{r}
+(x <- c(1, 2, 3, 4)) # preferred method
+```
+
+is the same as
+
+```{r}
+x <- c(1, 2, 3, 4)
+x
+```
+
+Refresher
+========================================================
+
+![r-data-structures](r-data-structures.jpg)
+
+Refresher
+========================================================
+
+```{r}
+(x <- matrix(1:6, nrow = 2, ncol = 3))
+seq_len(nrow(x)) # indices of x's rows
+seq_len(ncol(x)) # indices of x's columns
+```
+
+Refresher
+========================================================
+
+```{r}
+(x <- matrix(1:6, nrow = 2, ncol = 3))
+x[1, 2] # x[row, column]
+x[2, 3]
+```
+
+Refresher
+========================================================
+
+```{r}
+(x <- matrix(1:6, nrow = 2, ncol = 3))
+for (a in seq_len(nrow(x))) # 1 2
+   for (b in seq_len(ncol(x))) # 1 2 3
+      print(x[a, b])
+```
 
 Week 3
 ========================================================
@@ -34,12 +102,22 @@ Applies a function over a list or vector
 lapply
 ```
 
+Loop Functions
+========================================================
+
+```{r}
+(x <- list(a = 1:3, b = rnorm(3)))
+for (a in 1:length(x)) { # 1:2
+   print(mean(x[[a]])) # remember [[?]]?
+}
+```
+
 Loop functions - lapply
 ========================================================
 
 ```{r}
 (x <- list(a = 1:3, b = rnorm(3)))
-lapply(x, mean)
+lapply(x, mean) # mean(x$a) and mean(x$b)
 ```
 
 Loop functions - lapply
@@ -49,7 +127,7 @@ Loop functions - lapply
 
 ```{r}
 x <- 1:3 # number of observations
-lapply(x, runif) # n, min = 0, max = 1
+lapply(x, runif) # runif(n, min = 0, max = 1)
 ```
 
 Loop functions - lapply
@@ -67,6 +145,7 @@ Loop functions - lapply
 ```{r}
 x <- list(a = matrix(1:4, nrow=2, ncol=2),
           b = matrix(1:6, nrow=3, ncol=2))
+# show column 1 in matrix format
 lapply(x, function(elt) elt[, 1, drop = F])
 ```
 
@@ -83,25 +162,46 @@ Loop functions - sapply
 ========================================================
 
 ```{r}
-data(mtcars)
-mtcars[1, ]
+data(mtcars) # in-built dataset
+str(mtcars[1, ]) # first row
+```
+
+Loop functions - sapply
+========================================================
+
+If the result is a list where every element is length 1, then a vector is returned
+
+```{r}
+data(mtcars) # in-built dataset
+# mtcars[1, ] # show first row
 sapply(mtcars, is.numeric) # returns a vector
 ```
 
 Loop functions - sapply
 ========================================================
 
+If the result is a list where every element is a vector of the same length (>1), a matrix is returned
+
 ```{r}
 ```{r}
-x <- c(8, 8, 8) # number of observations
-sapply(x, runif) # returns a matrix
+x <- c(8, 8, 8) # 3 columns of 8 observations
+sapply(x, runif) # runif(8, min = 0, max = 1)
 ```
 
 Loop functions - sapply
 ========================================================
 
 ```{r}
-(x <- data.frame(x = 1:10, y = Sys.time() + 1:10))[1, ]
+(x <- data.frame(x = 1:10, y = Sys.time() + 1:10)) # plus 1:10 secs
+```
+
+Loop functions - sapply
+========================================================
+
+If the result is a list where every element is of different types or lengths, it will silently return a list
+
+```{r}
+x <- data.frame(x = 1:10, y = Sys.time() + 1:10)
 sapply(x, class) # returns a list
 ```
 
@@ -131,6 +231,18 @@ apply(x, 2, mean) # col
 Loop functions - apply
 ========================================================
 
+```quantile()``` provides the sample quantiles based on the given probabilities
+
+```{r}
+# quantile(x, probs = seq(0, 1, 0.25),
+#          na.rm = FALSE, names = TRUE,
+#          type = 7, ...)
+quantile
+```
+
+Loop functions - apply
+========================================================
+
 ```{r}
 (x <- matrix(rnorm(15), ncol = 3))
 apply(x, 2, quantile, probs = c(0.25, 0.75))
@@ -147,15 +259,22 @@ str(tapply)
 
 ```X``` is a vector and ```INDEX``` is a grouping factor. The function should expect one argument, which is a vector of elements taken from x according to their group
 
+Loop functions - tapply
+========================================================
+
+```{r}
+data(Orange) # Growth of Orange Trees
+Orange[1:10, ]
+```
 
 Loop functions - tapply
 ========================================================
 
 ```{r}
 data(Orange) # Growth of Orange Trees
-Orange[1, ]
 str(Orange$Tree)
 levels(Orange$Tree)
+nlevels(Orange$Tree)
 ```
 
 Loop functions - tapply
@@ -166,7 +285,7 @@ data(Orange) # Growth of Orange Trees
 tapply(Orange$circumference, Orange$Tree, mean) # returns an array
 ```
 
-If ```simplify``` = ```FALSE```, it will return a list
+If ```simplify``` = ```FALSE``` (not the default), it will return a list
 
 Loop functions - tapply
 ========================================================
@@ -182,6 +301,8 @@ tapply(x, f, mean)
 Loop functions - tapply
 ========================================================
 
+Returns a list instead of an array, see ```simplify = FALSE```
+
 ```{r}
 x <- c(rnorm(10), runif(10), rnorm(10, 1))
 f <- gl(3, 10)
@@ -191,11 +312,12 @@ tapply(x, f, mean, simplify = FALSE)
 Loop functions - tapply
 ========================================================
 
+```range()``` returns a vector of min and max
+
 ```{r}
 x <- c(rnorm(10), runif(10), rnorm(10, 1))
 f <- gl(3, 10)
 # returns an array with the mode of the scalar
-# range returns a vector of min and max
 tapply(x, f, range)
 ```
 
@@ -227,7 +349,11 @@ l2 <- list(c = c(21:30), d = c(31:40))
 # sum the corresponding elements of l1 and l2
 mapply(sum, l1$a, l1$b, l2$c, l2$d)
 # sum(1, 11, 21, 31) = 64
+# sum(2, 12, 22, 32) = 68
+# sum(3, 13, 23, 33) = 72
 # ...
+# sum(8, 18, 28, 38) = 92
+# sum(9, 19, 29, 39) = 96
 # sum(10, 20, 30, 40) = 100
 ```
 
@@ -251,7 +377,7 @@ Loop functions - split
 
 ```{r}
 x <- c(rnorm(5), runif(5), rnorm(5, 1))
-f <- gl(3, 5)
+f <- gl(3, 5) # 3 levels, 5 replications
 split(x, f) # returns a list of vectors
 ```
 
@@ -260,7 +386,7 @@ Loop functions - split
 
 ```{r}
 x <- c(rnorm(5), runif(5), rnorm(5, 1))
-f <- gl(3, 5)
+f <- gl(3, 5) # 3 levels, 5 replications
 lapply(split(x, f), mean)
 ```
 
@@ -281,8 +407,8 @@ Loop functions - split
 ```{r}
 x <- 1:10
 (f1 <- gl(2, 5)) # 2 - levels, 5 - repl
-f2 <- gl(5, 2)
-interaction(f1, f2)
+f2 <- gl(5, 2) # 5 - levels, 2 - replications
+interaction(f1, f2) # Factor interactions
 ```
 
 Loop functions - split
@@ -332,4 +458,6 @@ References
 Thanks
 ========================================================
 
-Join our [iDA Data Sci MOOC](https://www.facebook.com/groups/iDADataSciMOOC/) Facebook group!
+Join the [first](https://www.facebook.com/groups/iDADataSciMOOC/) and [second](https://www.facebook.com/groups/datascienceJOHNS/) cohorts' Facebook groups!
+
+[@eugeneteo](http://www.twitter.com/eugeneteo)
