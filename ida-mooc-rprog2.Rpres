@@ -8,26 +8,21 @@ Who am i?
 
 ![ida-mooc-2014](ida-mooc-2014.jpg)
 
-[https://github.com/eugeneteo/ida-mooc-rprog2](https://github.com/eugeneteo/ida-mooc-rprog2)
-
 [@eugeneteo](http://www.twitter.com/eugeneteo)
 
-Refresher
+Learning frustrations
 ========================================================
 
-"As you learn to program, you are going to get frustrated. You are learning a
-new language, and it will take time to become fluent. But frustration is not just natural, it's
-actually a positive sign that you should watch for.
+![learning-frustrations](learning-frustrations.jpg)
 
-Frustration is your brain's way of being
-lazy; it's trying to get you to quit and go do something easy or fun. [...] If you want
-to get better at programming, you'll need to push your brain.
+[https://twitter.com/dsquintana/status/509654633464471552](https://twitter.com/dsquintana/status/509654633464471552)
 
-Recognize when you get frustrated
-and see it as a good thing: you're now stretching yourself. Push yourself a little further
-every day, and you'll soon be a confident programmer."
+Invest a little time
+========================================================
 
--- Hadley Wickham
+![invest-a-little-time](invest-a-little-time.png)
+
+[https://twitter.com/hadleywickham/status/565516534089785344](https://twitter.com/hadleywickham/status/565516534089785344)
 
 Refresher
 ========================================================
@@ -102,7 +97,7 @@ Applies a function over a list or vector
 lapply
 ```
 
-Loop Functions
+Loop functions
 ========================================================
 
 ```{r}
@@ -395,13 +390,34 @@ Loop functions - split
 
 ```{r}
 data(airquality)
-# first three months
-s <- split(airquality, airquality$Month)[1:3]
-# column mean
-sapply(s, function(x) apply(x[, c("Ozone", "Solar.R", "Wind", "Temp")], 2, mean, na.rm = TRUE))
+str(airquality$Month)
+table(airquality$Month)
 ```
 
 Loop functions - split
+========================================================
+
+```{r}
+head((s <- split(airquality, airquality$Month))$`5`) # May
+```
+
+Loop functions - split
+========================================================
+
+```{r,results=FALSE}
+data(airquality)
+s <- split(airquality, airquality$Month)
+# column mean
+sapply(s,
+       function(x) {
+          apply(x[, c("Ozone", "Solar.R",
+                      "Wind", "Temp")],
+                2, mean, na.rm = TRUE)
+       }
+)
+```
+
+Optional - Loop functions - split
 ========================================================
 
 ```{r}
@@ -411,7 +427,7 @@ f2 <- gl(5, 2) # 5 - levels, 2 - replications
 interaction(f1, f2) # Factor interactions
 ```
 
-Loop functions - split
+Optional - Loop functions - split
 ========================================================
 
 ```{r}
@@ -421,7 +437,7 @@ f2 <- gl(5, 2)
 str(split(x, list(f1, f2)))
 ```
 
-Loop functions - split
+Optional - Loop functions - split
 ========================================================
 
 Explanation:
@@ -454,6 +470,13 @@ References
 [A brief introduction to “apply” in R](https://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/) by Neil Saunders
 
 [R tapply Function](http://www.endmemo.com/program/R/tapply.php) by endmemo.com
+
+Repositories
+========================================================
+
+[https://github.com/eugeneteo/ida-mooc-rprog1](https://github.com/eugeneteo/ida-mooc-rprog1)
+
+[https://github.com/eugeneteo/ida-mooc-rprog2](https://github.com/eugeneteo/ida-mooc-rprog2)
 
 Thanks
 ========================================================

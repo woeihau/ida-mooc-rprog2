@@ -8,26 +8,21 @@ Who am i?
 
 ![ida-mooc-2014](ida-mooc-2014.jpg)
 
-[https://github.com/eugeneteo/ida-mooc-rprog2](https://github.com/eugeneteo/ida-mooc-rprog2)
-
 [@eugeneteo](http://www.twitter.com/eugeneteo)
 
-Refresher
+Learning frustrations
 ========================================================
 
-"As you learn to program, you are going to get frustrated. You are learning a
-new language, and it will take time to become fluent. But frustration is not just natural, it's
-actually a positive sign that you should watch for.
+![learning-frustrations](learning-frustrations.jpg)
 
-Frustration is your brain's way of being
-lazy; it's trying to get you to quit and go do something easy or fun. [...] If you want
-to get better at programming, you'll need to push your brain.
+[https://twitter.com/dsquintana/status/509654633464471552](https://twitter.com/dsquintana/status/509654633464471552)
 
-Recognize when you get frustrated
-and see it as a good thing: you're now stretching yourself. Push yourself a little further
-every day, and you'll soon be a confident programmer."
+Invest a little time
+========================================================
 
--- Hadley Wickham
+![invest-a-little-time](invest-a-little-time.png)
+
+[https://twitter.com/hadleywickham/status/565516534089785344](https://twitter.com/hadleywickham/status/565516534089785344)
 
 Refresher
 ========================================================
@@ -182,11 +177,11 @@ function (X, FUN, ...)
         X <- as.list(X)
     .Internal(lapply(X, FUN))
 }
-<bytecode: 0x7fa32102fd78>
+<bytecode: 0x7fbe59934508>
 <environment: namespace:base>
 ```
 
-Loop Functions
+Loop functions
 ========================================================
 
 
@@ -199,7 +194,7 @@ $a
 [1] 1 2 3
 
 $b
-[1] -2.2385283  0.6897759 -0.3757197
+[1] -0.06331  1.59713  1.94097
 ```
 
 ```r
@@ -210,7 +205,7 @@ for (a in 1:length(x)) { # 1:2
 
 ```
 [1] 2
-[1] -0.6414907
+[1] 1.158
 ```
 
 Loop functions - lapply
@@ -226,7 +221,7 @@ $a
 [1] 1 2 3
 
 $b
-[1]  0.4627700 -0.4401947 -1.0321447
+[1]  2.41059  0.35056 -0.01228
 ```
 
 ```r
@@ -238,7 +233,7 @@ $a
 [1] 2
 
 $b
-[1] -0.3365231
+[1] 0.9163
 ```
 
 Loop functions - lapply
@@ -254,13 +249,13 @@ lapply(x, runif) # runif(n, min = 0, max = 1)
 
 ```
 [[1]]
-[1] 0.4682086
+[1] 0.6476
 
 [[2]]
-[1] 0.09908585 0.31213501
+[1] 0.7777 0.2263
 
 [[3]]
-[1] 0.32114970 0.08100106 0.98748551
+[1] 0.9976 0.4284 0.3140
 ```
 
 Loop functions - lapply
@@ -372,15 +367,15 @@ sapply(x, runif) # runif(8, min = 0, max = 1)
 ```
 
 ```
-           [,1]       [,2]       [,3]
-[1,] 0.46275975 0.04335141 0.33915467
-[2,] 0.23744824 0.61148808 0.31302731
-[3,] 0.73718435 0.08582378 0.51388086
-[4,] 0.88424684 0.24862132 0.01103550
-[5,] 0.39772136 0.35580143 0.95110089
-[6,] 0.04426167 0.58004048 0.02265616
-[7,] 0.84149079 0.81558835 0.86771253
-[8,] 0.28387279 0.60785803 0.49148457
+        [,1]   [,2]   [,3]
+[1,] 0.44699 0.2540 0.1084
+[2,] 0.90662 0.8159 0.8852
+[3,] 0.04765 0.6212 0.7624
+[4,] 0.27996 0.6961 0.7917
+[5,] 0.60085 0.7474 0.8297
+[6,] 0.26552 0.7800 0.9081
+[7,] 0.65968 0.5381 0.4563
+[8,] 0.72746 0.3930 0.9527
 ```
 
 Loop functions - sapply
@@ -393,16 +388,16 @@ Loop functions - sapply
 
 ```
     x                   y
-1   1 2015-02-07 10:52:04
-2   2 2015-02-07 10:52:05
-3   3 2015-02-07 10:52:06
-4   4 2015-02-07 10:52:07
-5   5 2015-02-07 10:52:08
-6   6 2015-02-07 10:52:09
-7   7 2015-02-07 10:52:10
-8   8 2015-02-07 10:52:11
-9   9 2015-02-07 10:52:12
-10 10 2015-02-07 10:52:13
+1   1 2015-02-16 11:33:50
+2   2 2015-02-16 11:33:51
+3   3 2015-02-16 11:33:52
+4   4 2015-02-16 11:33:53
+5   5 2015-02-16 11:33:54
+6   6 2015-02-16 11:33:55
+7   7 2015-02-16 11:33:56
+8   8 2015-02-16 11:33:57
+9   9 2015-02-16 11:33:58
+10 10 2015-02-16 11:33:59
 ```
 
 Loop functions - sapply
@@ -489,7 +484,7 @@ quantile
 ```
 function (x, ...) 
 UseMethod("quantile")
-<bytecode: 0x7fa3231acd88>
+<bytecode: 0x7fbe5ab8d378>
 <environment: namespace:stats>
 ```
 
@@ -502,12 +497,12 @@ Loop functions - apply
 ```
 
 ```
-            [,1]       [,2]         [,3]
-[1,]  0.20638086 -0.1341630  0.454166012
-[2,] -0.31234446  1.7214582  0.992061061
-[3,]  1.38489565  1.1261598 -0.568060673
-[4,]  0.08508306 -0.8391951  0.009162009
-[5,] -0.66024766 -0.2804249  0.759973437
+        [,1]     [,2]    [,3]
+[1,] -0.3405 -0.84050  0.6304
+[2,]  0.6197  1.05733  1.9130
+[3,] -1.3135  0.08270 -1.0532
+[4,] -0.7158 -1.58314  1.9523
+[5,]  0.1471 -0.01433 -0.3095
 ```
 
 ```r
@@ -515,9 +510,9 @@ apply(x, 2, quantile, probs = c(0.25, 0.75))
 ```
 
 ```
-          [,1]       [,2]        [,3]
-25% -0.3123445 -0.2804249 0.009162009
-75%  0.2063809  1.1261598 0.759973437
+       [,1]    [,2]    [,3]
+25% -0.7158 -0.8405 -0.3095
+75%  0.1471  0.0827  1.9130
 ```
 
 Loop functions - tapply
@@ -598,8 +593,8 @@ tapply(Orange$circumference, Orange$Tree, mean) # returns an array
 ```
 
 ```
-        3         1         5         2         4 
- 94.00000  99.57143 111.14286 135.28571 139.28571 
+     3      1      5      2      4 
+ 94.00  99.57 111.14 135.29 139.29 
 ```
 
 If ```simplify``` = ```FALSE``` (not the default), it will return a list
@@ -625,8 +620,8 @@ tapply(x, f, mean)
 ```
 
 ```
-         1          2          3 
--0.3662969  0.4416382  0.5412807 
+     1      2      3 
+0.2715 0.5185 1.4648 
 ```
 
 Loop functions - tapply
@@ -643,13 +638,13 @@ tapply(x, f, mean, simplify = FALSE)
 
 ```
 $`1`
-[1] 0.09139896
+[1] 0.08655
 
 $`2`
-[1] 0.5737328
+[1] 0.5275
 
 $`3`
-[1] 1.411114
+[1] 1.118
 ```
 
 Loop functions - tapply
@@ -667,13 +662,13 @@ tapply(x, f, range)
 
 ```
 $`1`
-[1] -3.033554  1.792158
+[1] -2.0849  0.8517
 
 $`2`
-[1] 0.05541106 0.97794027
+[1] 0.02398 0.88222
 
 $`3`
-[1] -1.777545  2.537002
+[1] -0.7537  2.8663
 ```
 
 Loop functions - mapply
@@ -772,13 +767,13 @@ split(x, f) # returns a list of vectors
 
 ```
 $`1`
-[1] -1.3841932 -0.1466192 -1.4490820  0.2533132 -0.2254770
+[1] -0.9669 -0.9608 -1.1150 -0.7015 -0.2848
 
 $`2`
-[1] 0.8376879 0.1411234 0.5043843 0.7396503 0.9647902
+[1] 0.05457 0.99981 0.85727 0.59342 0.92627
 
 $`3`
-[1] 1.3078085 1.7957987 0.2445747 2.5139787 0.6559782
+[1] -0.1541  3.1983  1.5027  2.6935  1.1225
 ```
 
 Loop functions - split
@@ -793,13 +788,13 @@ lapply(split(x, f), mean)
 
 ```
 $`1`
-[1] -0.009444776
+[1] 0.1632
 
 $`2`
-[1] 0.5304554
+[1] 0.4515
 
 $`3`
-[1] 0.6045341
+[1] 0.8743
 ```
 
 Loop functions - split
@@ -808,21 +803,67 @@ Loop functions - split
 
 ```r
 data(airquality)
-# first three months
-s <- split(airquality, airquality$Month)[1:3]
-# column mean
-sapply(s, function(x) apply(x[, c("Ozone", "Solar.R", "Wind", "Temp")], 2, mean, na.rm = TRUE))
+str(airquality$Month)
 ```
 
 ```
-                5         6          7
-Ozone    23.61538  29.44444  59.115385
-Solar.R 181.29630 190.16667 216.483871
-Wind     11.62258  10.26667   8.941935
-Temp     65.54839  79.10000  83.903226
+ int [1:153] 5 5 5 5 5 5 5 5 5 5 ...
+```
+
+```r
+table(airquality$Month)
+```
+
+```
+
+ 5  6  7  8  9 
+31 30 31 31 30 
 ```
 
 Loop functions - split
+========================================================
+
+
+```r
+head((s <- split(airquality, airquality$Month))$`5`) # May
+```
+
+```
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6
+```
+
+Loop functions - split
+========================================================
+
+
+```r
+data(airquality)
+s <- split(airquality, airquality$Month)
+# column mean
+sapply(s,
+       function(x) {
+          apply(x[, c("Ozone", "Solar.R",
+                      "Wind", "Temp")],
+                2, mean, na.rm = TRUE)
+       }
+)
+```
+
+```
+             5      6       7       8      9
+Ozone    23.62  29.44  59.115  59.962  31.45
+Solar.R 181.30 190.17 216.484 171.857 167.43
+Wind     11.62  10.27   8.942   8.794  10.18
+Temp     65.55  79.10  83.903  83.968  76.90
+```
+
+Optional - Loop functions - split
 ========================================================
 
 
@@ -846,7 +887,7 @@ interaction(f1, f2) # Factor interactions
 Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5
 ```
 
-Loop functions - split
+Optional - Loop functions - split
 ========================================================
 
 
@@ -871,7 +912,7 @@ List of 10
  $ 2.5: int [1:2] 9 10
 ```
 
-Loop functions - split
+Optional - Loop functions - split
 ========================================================
 
 Explanation:
@@ -905,6 +946,13 @@ References
 [A brief introduction to “apply” in R](https://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/) by Neil Saunders
 
 [R tapply Function](http://www.endmemo.com/program/R/tapply.php) by endmemo.com
+
+Repositories
+========================================================
+
+[https://github.com/eugeneteo/ida-mooc-rprog1](https://github.com/eugeneteo/ida-mooc-rprog1)
+
+[https://github.com/eugeneteo/ida-mooc-rprog2](https://github.com/eugeneteo/ida-mooc-rprog2)
 
 Thanks
 ========================================================
